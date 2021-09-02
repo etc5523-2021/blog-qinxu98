@@ -38,11 +38,33 @@ prefectures <- prefectures_data %>%
   "peopleTested")) %>% 
   group_by(prefectureNameE) %>% 
   summarise (postive_cases = sum(testedPositive)) %>% 
-  arrange(desc(postive_cases)) 
+  arrange(desc(postive_cases)) %>% 
+  top_n(6) 
+ 
+   table<-prefectures %>% rename( Prefectures = prefectureNameE,
+          "Number of positive cases" = postive_cases)
+
+knitr::kable (table,caption = "The top 6 prefecture with the most number of postive cases in Japan") %>% kable_styling()
+  
 
 ```
 
 
+```{r prefectures_bargraph}
+p_plot <- ggplot(data = prefectures, 
+                      aes(x = prefectureNameE,
+                          y = postive_cases,
+                          fill = prefectureNameE )) +
+    geom_bar(stat="identity",position ="dodge") +
+    ggtitle("The top 6 prefecture with the most number of postive cases in Japan") +
+   geom_text(aes(label = postive_cases ), vjust =2, colour = "black", size = 2.2) +
+  xlab("Number of postive cases") +
+  ylab("Prefectures") +
+  coord_flip() 
+g<- ggplotly(p_plot )
+g
+
+```
 
 
 
