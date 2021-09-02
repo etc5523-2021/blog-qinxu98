@@ -1,0 +1,52 @@
+---
+title: "COVID-19 In Japan"
+description: |
+  Welcome to our new blog, In this blog, we explore the different impact of COVID has resulted in Japan We hope you enjoy reading what we have to say!
+author:
+  - name: Qin Xu 
+    url: https://example.com/norajones
+    affiliation: Spacely Sprockets
+    affiliation_url: https://example.com/spacelysprokets
+date: 08-31-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r}
+library(here)
+```
+
+## Introduction
+Covid- 19 is a disease caused by a form of coronavirus that can cause respiratory infections that can range from the common cold to more serious diseases.With its strong trasnmissiblity among public, it is true indeed to say that the COVID-19 pandemic has presented an unprecedent challenge to public health across the globe with a continue increase in the number of the people confirmed with the virus. Thus, to better understand the virus and its characteristic, we will be examining the the impact COVID-19 pandemic in Japan.
+
+
+## Data description
+
+To conduct our exploration of the impact of COVID in japan, we will be using multiple datasets (this includes number of death from COVID-19, number of recovery from COVID-19, Number of people who have taken the PCR test, Number of positive cases) for our analysis.
+All the datasets were sourced from Toyo Keizai Online "Coronavirus Disease (COVID-19) Situation Report in Japan" with its orginal data provided by the Ministry of Health, Labor and Welfare in Japan. 
+
+```{r results = FALSE }
+death_data <- read.csv(here::here("data/death_total.csv"))
+
+demography_data <- read.csv(here::here("data/demography.csv"))
+
+recovery_data <- read.csv(here::here("data/recovery_total.csv"))
+
+pcr_postive_daily_data <- read.csv(here::here("data/pcr_positive_daily.csv"))
+
+pcr_tested_daily_data <- read.csv(here::here("data/pcr_positive_daily.csv"))
+
+demography_data
+death_data 
+recovery_data
+pcr_postive_daily_data
+```
+
+
+
+

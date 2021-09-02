@@ -1,0 +1,54 @@
+---
+title: "Part 1-Covid-19 Situation in Japan "
+description: |
+  In this section of the blog, we will be examine the effect of COVID-19 in Japan through detail analysis of the number of death, the number of recoverys and the future trend of COVID-19 in Japan  .
+author:
+  - name: Qin Xu 
+    url: https://example.com/norajones
+date: 09-01-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r library}
+library(tidyverse)
+library(gt)
+library(formattable)
+library(kableExtra)
+```
+
+
+```{r results = FALSE }
+death_data <- read.csv(here::here("data/death_total.csv"))
+
+demography_data <- read.csv(here::here("data/demography.csv"))
+
+recovery_data <- read.csv(here::here("data/recovery_total.csv"))
+
+pcr_postive_daily_data <- read.csv(here::here("data/pcr_positive_daily.csv"))
+
+pcr_tested_daily_data <- read.csv(here::here("data/pcr_positive_daily.csv"))
+
+
+```
+## Number of death 
+```{r death}
+new_death<- death_data %>%
+  rename("date"= "日付",
+         "Number_of_death" = "死亡者数") %>% 
+  mutate(date = as.Date(date)) 
+```
+
+## demography
+
+```{r demography}
+
+
+```
+

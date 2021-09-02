@@ -1,8 +1,8 @@
 # My Blog
 
 
-This is the blog of [FILL].
-The URL of this blog is [FILL].
+This is the blog of [Qin Xu].
+The URL of this blog is [https://etc5523blog1.netlify.app/].
 
 ## Blog Post 1
 
@@ -10,7 +10,7 @@ This assessment is due Fri Sep 3 2021 11.55PM AEST.
 
 My selected country is [Japan].
 
-The relevant blog post for this assessment is in [FILL].html
+The relevant blog post for this assessment is in [].html
 
 - [ ] Selected a country
 - [ ] Website with R markdown 
