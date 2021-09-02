@@ -28,7 +28,7 @@ Covid- 19 is a disease caused by a form of coronavirus that can cause respirator
 ## Data description
 
 To conduct our exploration of the impact of COVID in japan, we will be using multiple datasets (this includes number of death from COVID-19, number of recovery from COVID-19, Number of people who have taken the PCR test, Number of positive cases) for our analysis.
-All the datasets were sourced from Toyo Keizai Online "Coronavirus Disease (COVID-19) Situation Report in Japan" with its orginal data provided by the Ministry of Health, Labor and Welfare in Japan. 
+All the datasets were sourced from Toyo Keizai Online "Coronavirus Disease (COVID-19) Situation Report in Japan" with its orginal data provided by the Ministry of Health, Labor and Welfare in Japan, and the other dataset are provided by our world in data with its orginal data sourced from COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University (JHU)
 
 ```{r results = FALSE }
 death_data <- read.csv(here::here("data/death_total.csv"))

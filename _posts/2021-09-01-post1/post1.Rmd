@@ -1,7 +1,7 @@
 ---
 title: "Part 1. COVID-19 Situation in Japan "
 description: |
-  In this section of the blog, we will be examine the current effect of COVID-19 in Japan through detail analysis of the the daily number of death, total number of death, and  the number of covid-19 recoveries in Japan. 
+  In this section of the blog, we will be examine the current effect of COVID-19 in Japan through detail analysis of the daily confirmed postive cases,  daily number of death, total number of death, and  the number of covid-19 recoveries in Japan. 
 author:
   - name: Qin Xu 
     url: 
@@ -27,14 +27,14 @@ library(plotly)
 library(DT)
 ```
 
-# COVID-19 Death in Japan 
+# COVID-19 situation in Japan 
 
 ```{r read_data}
 death_data <- read.csv(here::here("data/death_total.csv"))
 japan_data <- read.csv(here::here("data/owid-covid-data.csv"))
 ```
 
-```{r death}
+```{r data}
 japan <- japan_data %>%
   select(c("date",
            "total_cases",
@@ -44,9 +44,60 @@ japan <- japan_data %>%
            "new_tests",
            "total_tests",
            "location")) %>% 
-  filter (location == "Japan")
+  filter (location == "Japan") %>% 
+  mutate(date = as.Date(date)) %>% 
+  group_by(date) %>% 
+  mutate(percentage_positive_rate = sum(new_cases/new_tests, na.rm = TRUE) )
+
+japan
+```
+Hi there! Here an interactive table has been provided for your own data exploration, feel free to play around the dataset and use it as a complement to the following analysis in this post. :)
+
+```{r interactive_table}
+DT::datatable(japan, option = list(pageLength = 4))
 ```
 
+```{r daily_cases}
+cases <- japan %>% 
+  select (c( "total_cases",
+           "new_cases",
+           "date",
+          "location")) %>% 
+  mutate(date = as.Date(date)) %>% 
+  relocate(date,.before = total_cases)
+```
+
+```{r daily_case_p}
+dcasesp_p<- ggplot(data = cases, 
+                      aes(x = date,
+                          y= new_cases,
+                          )) +
+    geom_line(stat = "identity", size = 0.5) +
+  geom_point(size = 0.3) +
+    ggtitle("Daily number of COVID-19 confirm cases in Japan from 2020-2021") +
+  xlab("Date") + 
+  ylab("Daily new cases in Japan") +
+   scale_colour_brewer(palette = "Set1")
+
+ dcasesp_p<-ggplotly(dcasesp_p)
+dcasesp_p
+```
+
+```{r Tcases_graph}
+tcases_p<- ggplot(data = cases, 
+                      aes(x = date,
+                          y= total_cases,
+                          )) +
+    geom_line(stat = "identity", size = 0.5) +
+  geom_point(size = 0.3) +
+    ggtitle("Total number of COVID-19 cases in Japan from 2020-2021") +
+  xlab("Date") + 
+  ylab("Total posiitve in Japan") +
+   scale_colour_brewer(palette = "Set1")
+
+dcases_p <-ggplotly(tcases_p)
+dcases_p 
+```
 
 
 ```{r daily_death}
@@ -58,11 +109,6 @@ death <- japan %>%
   mutate(date = as.Date(date)) %>% 
   relocate(date,.before = total_deaths)
 ```
-
-```{r interactive_table}
-DT::datatable(death, option = list(pageLength = 4))
-```
-
 
 ```{r daily_death_plot}
 ddeath_p<- ggplot(data = death, 
@@ -101,9 +147,5 @@ ddeath_p
 From the plot generated, we can see that there is an increasing trend in the number of the COVID-19 death in the Japan. The trend was relatively flat from the 14th of feburary 2020 to the 1st of December 2020, however after that there is a rapid surge in the number of death (first wave of the COVID-19 in japan)  that stopped around 12th of april 2021. However by May 2021, Japan faced a second small wave of the Covid-19 deaths, with its peak of total number of death arriving at 15987 by the end of August 2021. 
 
 From the above analysis on the daily death and the total number of COVID-19 deaths in Japan, it can be concluded that the covid-19 situation in Japan are not in the positive light as both the total number of death and daily number death are greater in 2021 than 2020. An possible explanation to this  phenomenon is that, as covid-19 conitues to rampage the world,simultaneosuly the virus itself also continues to mutate into new variants of the virus with stronger fatality rate and tramissibility. Thus, making it more difficult to not catch the virus and ultimately leading to higher number of deaths in Japan. 
-
-
-
-
 
  
