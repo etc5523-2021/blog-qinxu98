@@ -1,7 +1,7 @@
 ---
 title: "Part 2.COVID-19 Situation in Japan"
 description: |
-  In this section of the blog, we will drive deeper to explore the action that has been taken into account to fight COVID-19 in Japan by looking at it's COVID-19 recovery rate, and 
+  In this section of the blog, we will drive deeper to explore the action that has been taken into account to fight COVID-19 in Japan by looking at it's COVID-19 recovery rate, and the vacinnation rate.
 author:
   - name: Qin Xu
     url: {}
@@ -26,8 +26,8 @@ library(plotly)
 
 ```{r read_data}
 recovery_data <- read.csv(here::here("data/recovery_total.csv"))
+japan_data <- read.csv(here::here("data/owid-covid-data.csv"))
 ```
-
 
 ```{r recovery}
 japan_recovery <- recovery_data %>% 
@@ -50,3 +50,4 @@ recovery_graph<- ggplot(data = japan_recovery,
 recovery_p <-ggplotly(recovery_graph)
 recovery_p
 ```
+
