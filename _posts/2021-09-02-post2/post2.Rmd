@@ -27,8 +27,24 @@ library(plotly)
 ```{r read_data}
 recovery_data <- read.csv(here::here("data/recovery_total.csv"))
 japan_data <- read.csv(here::here("data/owid-covid-data.csv"))
+prefectures_data <- read.csv(here::here("data/prefectures.csv"))
+```
+
+```{r}
+prefectures <- prefectures_data %>%
+  select(c(
+  "prefectureNameE",
+  "testedPositive",
+  "peopleTested")) %>% 
+  group_by(prefectureNameE) %>% 
+  summarise (postive_cases = sum(testedPositive)) %>% 
+  arrange(desc(postive_cases)) 
 
 ```
+
+
+
+
 
 ```{r vacination}
 vac<- japan_data %>% 
@@ -49,12 +65,18 @@ mutate(full_vacination_rate = sum(people_fully_vaccinated/population, na.rm = TR
 ```{r table}
 vac_table <- vac %>%  
   select(c("vacination_rate","full_vacination_rate","date")) %>% 
-  filter (date == "2021-08-30" |date == "2020-01-22") %>% 
-    relocate(date,.before = vacination_rate)
-knitr::kable (vac_table ,caption = "The Proportion of vacination rate in Japan in 2020 vs 2021") %>% kable_styling()
+  filter (date == "2021-08-30" |date == "2020-01-30"| date == "2020-03-30" |date == "2020-04-30" | date == "2020-05-30" |date == "2020-06-30" | date == "2020-07-30" |date == "2020-08-30" | date == "2020-09-30" |date == "2020-10-30" | date == "2020-11-30" |date == "2020-12-30" |date == "2021-01-30" | date == "2021-03-30" |date == "2021-04-30" | date == "2021-05-30" |date == "2021-06-30" | date == "2021-07-30")%>% 
+    relocate(date,.before = vacination_rate) %>% 
+  gt() %>% 
+  tab_header (title = "The Vacination rate in Japan",
+              subtitle = "The vacination rate and fully vacination rate 2020 vs 2021 in Japan ") %>% 
+ tab_source_note(md("Souced:COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University (JHU)"))
+vac_table
+
+
+
 
 ```
-
 
 
 ```{r plot}

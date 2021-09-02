@@ -51,8 +51,7 @@ japan <- japan_data %>%
 
 japan
 ```
-Hi there! Here an interactive table has been provided for your own data exploration, feel free to play around the dataset and use it as a complement to the following analysis in this post. :)
-
+Hi there! Here an interactive table has been provided for your own data exploration, feel free to play around the dataset and use it as a complement to the following analysis in this post. 
 ```{r interactive_table}
 DT::datatable(japan, option = list(pageLength = 4))
 ```
