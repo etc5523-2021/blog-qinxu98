@@ -2,7 +2,7 @@
 
 
 This is the blog of [Qin Xu].
-The URL of this blog is [https://etc5523blog1.netlify.app/].
+The URL of this blog is [ https://etc5523-2021.github.io/blog-qinxu98/].
 
 ## Blog Post 1
 
@@ -37,3 +37,4 @@ The relevant blog post for this assessment is in [FILL].html
 - [ ] Graph 2
 - [ ] Submitted the entire blog to Moodle
 
+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

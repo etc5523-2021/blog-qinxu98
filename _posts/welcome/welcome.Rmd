@@ -33,18 +33,12 @@ All the datasets were sourced from Toyo Keizai Online "Coronavirus Disease (COVI
 ```{r results = FALSE }
 death_data <- read.csv(here::here("data/death_total.csv"))
 
-demography_data <- read.csv(here::here("data/demography.csv"))
-
 recovery_data <- read.csv(here::here("data/recovery_total.csv"))
 
 pcr_postive_daily_data <- read.csv(here::here("data/pcr_positive_daily.csv"))
 
 pcr_tested_daily_data <- read.csv(here::here("data/pcr_positive_daily.csv"))
 
-demography_data
-death_data 
-recovery_data
-pcr_postive_daily_data
 ```
 
 
