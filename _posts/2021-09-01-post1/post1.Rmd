@@ -1,5 +1,5 @@
 ---
-title: "Part 1-Covid-19 Situation in Japan "
+title: "Part 1. COVID-19 Situation in Japan "
 description: |
   In this section of the blog, we will be examine the current effect of COVID-19 in Japan through detail analysis of the the daily number of death, total number of death, and  the number of covid-19 recoveries in Japan. 
 author:
@@ -24,14 +24,13 @@ library(here)
 library(kableExtra)
 library(ggplot2)
 library(plotly)
-
+library(DT)
 ```
 
 # COVID-19 Death in Japan 
 
 ```{r read_data}
 death_data <- read.csv(here::here("data/death_total.csv"))
-recovery_data <- read.csv(here::here("data/recovery_total.csv"))
 japan_data <- read.csv(here::here("data/owid-covid-data.csv"))
 ```
 
@@ -42,19 +41,13 @@ japan <- japan_data %>%
            "new_cases",
            "total_deaths",
            "new_deaths",
-           "icu_patients",
-           "hosp_patients",
-           "weekly_icu_admissions",
            "new_tests",
            "total_tests",
            "location")) %>% 
   filter (location == "Japan")
 ```
 
-```{r interactive-table_death}
 
-
-```
 
 ```{r daily_death}
 death <- japan %>% 
@@ -62,9 +55,13 @@ death <- japan %>%
            "new_deaths",
            "date",
           "location")) %>% 
-  mutate(date = as.Date(date)) 
+  mutate(date = as.Date(date)) %>% 
+  relocate(date,.before = total_deaths)
 ```
 
+```{r interactive_table}
+DT::datatable(death, option = list(pageLength = 4))
+```
 
 
 ```{r daily_death_plot}
@@ -106,26 +103,7 @@ From the plot generated, we can see that there is an increasing trend in the num
 From the above analysis on the daily death and the total number of COVID-19 deaths in Japan, it can be concluded that the covid-19 situation in Japan are not in the positive light as both the total number of death and daily number death are greater in 2021 than 2020. An possible explanation to this  phenomenon is that, as covid-19 conitues to rampage the world,simultaneosuly the virus itself also continues to mutate into new variants of the virus with stronger fatality rate and tramissibility. Thus, making it more difficult to not catch the virus and ultimately leading to higher number of deaths in Japan. 
 
 
-```{r recovery}
-japan_recovery <- recovery_data %>% 
-  rename("Number_of_recovery" = "recovery_total") %>%  
-  mutate(Date = as.Date(Date)) 
-```
 
-```{r recovery_graph}
-recovery_graph<- ggplot(data = japan_recovery, 
-                      aes(x = Date,
-                          y= Number_of_recovery,
-                          )) +
-    geom_line(stat = "identity", size = 0.5) +
-  geom_point(size = 0.3) +
-    ggtitle("Total number of COVID-19 recoveries in Japn from 2020-2021") +
-  xlab("Date") + 
-  ylab("Number of recovery in Japan (cumulatively)") +
-   scale_colour_brewer(palette = "Set1")
 
-recovery_p <-ggplotly(recovery_graph)
-recovery_p
-```
 
  

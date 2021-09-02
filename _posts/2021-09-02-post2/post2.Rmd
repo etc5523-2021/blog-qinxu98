@@ -1,7 +1,7 @@
 ---
-title: "jonathan"
+title: "Part 2.COVID-19 Situation in Japan"
 description: |
-  A short description of the post.
+  In this section of the blog, we will drive deeper to explore the action that has been taken into account to fight COVID-19 in Japan by looking at it's COVID-19 recovery rate, and 
 author:
   - name: Qin Xu
     url: {}
@@ -10,14 +10,43 @@ output:
   distill::distill_article:
     self_contained: false
 ---
-
-
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE)
 ```
 
-Distill is a publication format for scientific and technical writing, native to the web.
+```{r library}
+library(tidyverse)
+library(gt)
+library(formattable)
+library(here)
+library(kableExtra)
+library(ggplot2)
+library(plotly)
+```
 
-Learn more about using Distill at <https://rstudio.github.io/distill>.
+```{r read_data}
+recovery_data <- read.csv(here::here("data/recovery_total.csv"))
+```
 
 
+```{r recovery}
+japan_recovery <- recovery_data %>% 
+  rename("Number_of_recovery" = "recovery_total") %>%  
+  mutate(Date = as.Date(Date)) 
+```
+
+```{r recovery_graph}
+recovery_graph<- ggplot(data = japan_recovery, 
+                      aes(x = Date,
+                          y= Number_of_recovery,
+                          )) +
+    geom_line(stat = "identity", size = 0.5) +
+  geom_point(size = 0.3) +
+    ggtitle("Total number of COVID-19 recoveries in Japn from 2020-2021") +
+  xlab("Date") + 
+  ylab("Number of recovery in Japan (cumulatively)") +
+   scale_colour_brewer(palette = "Set1")
+
+recovery_p <-ggplotly(recovery_graph)
+recovery_p
+```
