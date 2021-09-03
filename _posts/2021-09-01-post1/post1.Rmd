@@ -1,7 +1,7 @@
 ---
 title: "Part 1. COVID-19 Situation in Japan "
 description: |
-  In this section of the blog, we will be examine the current effect of COVID-19 in Japan through detail analysis of the daily confirmed postive cases,  daily number of death, total number of death, and  the number of covid-19 recoveries in Japan. 
+  In this section of the blog, we will be examine the current effect of COVID-19 in Japan through detail analysis of the daily confirmed postive cases,  daily number of death, total number of death in Japan. 
 author:
   - name: Qin Xu 
     url: 
@@ -30,7 +30,6 @@ library(DT)
 # COVID-19 situation in Japan 
 
 ```{r read_data}
-death_data <- read.csv(here::here("data/death_total.csv"))
 japan_data <- read.csv(here::here("data/owid-covid-data.csv"))
 ```
 
@@ -48,12 +47,6 @@ japan <- japan_data %>%
   mutate(date = as.Date(date)) %>% 
   group_by(date) %>% 
   mutate(percentage_positive_rate = sum(new_cases/new_tests, na.rm = TRUE) )
-
-japan
-```
-Hi there! Here an interactive table has been provided for your own data exploration, feel free to play around the dataset and use it as a complement to the following analysis in this post. 
-```{r interactive_table}
-DT::datatable(japan, option = list(pageLength = 4))
 ```
 
 ```{r daily_cases}
@@ -81,6 +74,7 @@ dcasesp_p<- ggplot(data = cases,
  dcasesp_p<-ggplotly(dcasesp_p)
 dcasesp_p
 ```
+From the plot we can see that the daily number of confirmed COVID-19 cases has increased dratistically from 2020 to 2021. From Janaury 2020 to november 2020 the trend was relatively flat with its peak at around 1500 daily confirmed cases, however by the beginning of 2021 june 20201, we see a huge surge with two peaks at around 7000 confirm cases per day. This increasing in peaks continued as by august 20th 2021 there are over 25000 confirm cases of COVID-19 in Japan per day. This indicates that the COVID-19 continues to rampage in Japan with more and more people catching the diseases. This could due to many reason, one being that the 2020 olypmpic  was held in August 20201 in Japan. In such an event, human gather in celebration of the olympic hence interaction is unavoidable and  as clusters increase  the spread of the disease also increases among the public thus the phenomon shown in this graph.  
 
 ```{r Tcases_graph}
 tcases_p<- ggplot(data = cases, 
@@ -145,6 +139,11 @@ ddeath_p
 
 From the plot generated, we can see that there is an increasing trend in the number of the COVID-19 death in the Japan. The trend was relatively flat from the 14th of feburary 2020 to the 1st of December 2020, however after that there is a rapid surge in the number of death (first wave of the COVID-19 in japan)  that stopped around 12th of april 2021. However by May 2021, Japan faced a second small wave of the Covid-19 deaths, with its peak of total number of death arriving at 15987 by the end of August 2021. 
 
-From the above analysis on the daily death and the total number of COVID-19 deaths in Japan, it can be concluded that the covid-19 situation in Japan are not in the positive light as both the total number of death and daily number death are greater in 2021 than 2020. An possible explanation to this  phenomenon is that, as covid-19 conitues to rampage the world,simultaneosuly the virus itself also continues to mutate into new variants of the virus with stronger fatality rate and tramissibility. Thus, making it more difficult to not catch the virus and ultimately leading to higher number of deaths in Japan. 
+Here an interactive table has been provided for your own data exploration, feel free to play around the dataset and use it as a complement to the following analysis in this post. 
+```{r interactive_table}
+DT::datatable(japan, option = list(pageLength = 4))
+```
+
+From the above analysis on the daily positive cases , daily number of deaths and the total number of COVID-19 deaths in Japan, it can be concluded that the covid-19 situation in Japan are not in the positive light as daily positive cases, the total number of death and daily number death are greater in 2021 than 2020. An possible explanation to this  phenomenon is that, as covid-19 conitues to rampage the world,simultaneosuly the virus itself also continues to mutate into new variants of the virus with stronger fatality rate and tramissibility. Thus, making it more difficult to not catch the virus and ultimately leading to higher number of deaths and number of positive cases in Japan. 
 
  
