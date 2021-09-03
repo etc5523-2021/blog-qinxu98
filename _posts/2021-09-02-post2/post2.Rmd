@@ -30,6 +30,7 @@ recovery_data <- read.csv(here::here("data/recovery_total.csv"))
 japan_data <- read.csv(here::here("data/owid-covid-data.csv"))
 prefectures_data <- read.csv(here::here("data/prefectures.csv"))
 ```
+## COVID-19 in different prefectures in Japan
 
 ```{r}
 prefectures <- prefectures_data %>%
@@ -109,6 +110,9 @@ l
 
 From the graph, we can see that the number of postive cases of COIVD-19 for all 6 locations in Japan obtains a increasing trend. All of the prefectures show a rapid surge in the number of confirm Covid-19 cases since mid july 2021 and conintues to increase to end of August 2021. 
 
+## COVID-19 Vaccination in Japan
+
+Now lets have a look at the vaccination status in japan.
 
 ```{r vacination}
 vac<- japan_data %>% 
@@ -138,10 +142,12 @@ vac_table <- vac %>%
 vac_table
 
 ```
+
 From this table, we can see that since January 2021, both vaccination rate and those who have recieved full vaccination rate are increasing. By August 2021 the vaccination rate in Japan arrive at 57% and full vaccination rate arriving ar 0.46%. This indicates that over half of the population have had at least one vaccine dose and nearly half of the population is now fully vaccinated aginst COVID-19. With this table, we can see that with the increase number of vaccination rate, it is suggestive that the government in Japan is taking an active approach by urgenting public to get vaccinated inoroder to  slow down the the spread COVID-19. 
 
-**COVID-19 Recovery**
-Here we will take a look in to the COVID-19 recoveries in Japan. 
+
+## COVID-19 Recovery in Japan
+
 ```{r recovery}
 japan_recovery <- recovery_data %>% 
   rename("Number_of_recovery" = "recovery_total") %>%  
