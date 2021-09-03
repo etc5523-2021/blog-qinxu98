@@ -24,6 +24,11 @@ library(knitr)
 
 ![image sourced from:https://solve.org.au/update-covid19/](https://solve.org.au/wp-content/uploads/2020/03/COVID-19.png)
 
+```{css}
+
+```
+
+
 ## Introduction
 
 Covid-19 is a disease caused by a form of coronavirus that can cause respiratory infections that range from the common cold to more serious diseases.With its strong transmissibility among public, it is true indeed to say that the COVID-19 pandemic has presented an unprecedent challenge to public health across the globe. As the number of cases confirmed with the virus continue to climb around the world, many countries has produced vaccination and urged their people to get vaccinated in attempt to stop the pandemic. Thus, to better understand the virus and its characteristics, we will be examining the the impact COVID-19 pandemic in Japan by first looking the COVID-19 positive rate and death rate in Post-1. Later followed by analysis on recovery rate, vacinnation rate in post 2.

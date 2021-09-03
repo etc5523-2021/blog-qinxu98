@@ -7,3 +7,8 @@ description: |
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+Hi there, in this blog, I explore COVID-19 situation in Japan by conducting analysis on the number of death, number of postive case of COVID-19, COVID-19 in different prefecture in Japan, Vaccination status and recovery rate. If this is something that interests you, you are welcome continue to explore my blog and contact me by my email:
+
+**email**: qxuu0023@student.monash.edu
+
+

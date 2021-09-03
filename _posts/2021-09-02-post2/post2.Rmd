@@ -58,7 +58,7 @@ knitr::kable (table,caption = "The top 6 prefecture with the most number of post
   
 
 ```
-From the table, we can see that the top number of postive cases are located in Tokyo (340,665), Osaka (166,378), Kanagawa (146,239), saitama(100,136), Chiba (85,573) and Aichi (82,167 respectively.
+From the table, we can see that the top number of postive cases are located in Tokyo (340,665), Osaka (166,378), Kanagawa (146,239), saitama(100,136), Chiba (85,573) and Aichi (82,167) respectively.
 
 ```{r prefectures_bargraph}
 p_plot <- ggplot(data = prefectures_p, 
@@ -71,7 +71,7 @@ p_plot <- ggplot(data = prefectures_p,
   xlab("Number of postive cases") +
   ylab("Prefectures") +
   coord_flip() 
-g<- ggplotly(p_plot )
+g<- ggplotly(p_plot)
 g
 
 ```

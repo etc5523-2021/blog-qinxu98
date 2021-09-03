@@ -1,5 +1,5 @@
 ---
-title: "Part 1. COVID-19 Situation in Japan "
+title: "Part 1. COVID-19 Situation in Japan"
 description: |
   In this section of the blog, we will be examine the current effect of COVID-19 in Japan through detail analysis of the daily confirmed postive cases,  daily number of death, total number of death in Japan. 
 author:
@@ -27,7 +27,6 @@ library(ggplot2)
 library(plotly)
 library(DT)
 ```
-
 # COVID-19 situation in Japan 
 
 ```{r read_data}
