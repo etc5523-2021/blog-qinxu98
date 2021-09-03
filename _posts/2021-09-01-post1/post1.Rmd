@@ -59,6 +59,12 @@ cases <- japan %>%
   relocate(date,.before = total_cases)
 ```
 
+Here is an interactive table has been provided for your own data exploration, feel free to play around the dataset and use it as a complement to the following analysis in this post. 
+
+```{r interactive_table}
+DT::datatable(japan, option = list(pageLength = 4))
+```
+
 ```{r daily_case_p}
 dcasesp_p<- ggplot(data = cases, 
                       aes(x = date,
@@ -138,11 +144,6 @@ ddeath_p
 ```
 
 From the plot generated, we can see that there is an increasing trend in the number of the COVID-19 death in the Japan. The trend was relatively flat from the 14th of feburary 2020 to the 1st of December 2020, however after that there is a rapid surge in the number of death (first wave of the COVID-19 in japan)  that stopped around 12th of april 2021. However by May 2021, Japan faced a second small wave of the Covid-19 deaths, with its peak of total number of death arriving at 15987 by the end of August 2021. 
-
-Here an interactive table has been provided for your own data exploration, feel free to play around the dataset and use it as a complement to the following analysis in this post. 
-```{r interactive_table}
-DT::datatable(japan, option = list(pageLength = 4))
-```
 
 From the above analysis on the daily positive cases , daily number of deaths and the total number of COVID-19 deaths in Japan, it can be concluded that the covid-19 situation in Japan are not in the positive light as daily positive cases, the total number of death and daily number death are greater in 2021 than 2020. An possible explanation to this  phenomenon is that, as covid-19 conitues to rampage the world,simultaneosuly the virus itself also continues to mutate into new variants of the virus with stronger fatality rate and tramissibility. Thus, making it more difficult to not catch the virus and ultimately leading to higher number of deaths and number of positive cases in Japan. 
 
