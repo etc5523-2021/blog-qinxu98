@@ -9,6 +9,7 @@ date: 09-02-2021
 output:
   distill::distill_article:
     self_contained: false
+    theme: theme.css
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE)
@@ -218,4 +219,5 @@ From the graph, we can see that the proportion of recovery was relatively low fr
 Base from the analysis we have conducted,  the COVID-19 situation in Japan is not great ,as there appears to be a growing number of confirm daily cases and deaths of COVID-19. However with the introduction of the vaccination in 2021, we also see a huge rise of recovery rate as compare to 2020. Thus we conclude that depsite the increase in the number of postive cases in Japan, the introduction of vaccination has helped to rised the recovery rate thus if vaccination continue to roll out across the country, with sufficient proportion of general public vaccinated, we can expect that the recovery rate will be grow simulatneously and slow down the virus (only if no new mutated COVID-19 variant show up). 
 
 
-
+THANKYOU for visiting my blog :))
+![image sourced from:https://solve.org.au/update-covid19/](https://giffiles.alphacoders.com/214/214222.gif)
