@@ -70,8 +70,8 @@ dcasesp_p<- ggplot(data = cases,
                       aes(x = date,
                           y= new_cases,
                           )) +
-    geom_line(stat = "identity", size = 0.5) +
-  geom_point(size = 0.3) +
+    geom_line(stat = "identity", size = 0.5,colour = "#FF9999") +
+  geom_point(size = 0.3, colour = "#FF9999") +
     ggtitle("Daily number of COVID-19 confirm cases in Japan from 2020-2021") +
   xlab("Date") + 
   ylab("Daily new cases in Japan") +
@@ -88,7 +88,7 @@ tcases_p<- ggplot(data = cases,
                           y= total_cases,
                           )) +
     geom_line(stat = "identity", size = 0.5) +
-  geom_point(size = 0.3) +
+  geom_point(size = 0.3, colour = "#FF9999") +
     ggtitle("Total number of COVID-19 cases in Japan from 2020-2021") +
   xlab("Date") + 
   ylab("Total posiitve in Japan") +
@@ -114,12 +114,13 @@ ddeath_p<- ggplot(data = death,
                       aes(x = date,
                           y= new_deaths,
                           )) +
-    geom_line(stat = "identity", size = 0.5) +
-  geom_point(size = 0.3) +
+    geom_line(stat = "identity", size = 0.5, colour = "#FF9999") +
+  geom_point(size = 0.3, colour = "#FF9999") +
     ggtitle("Daily number of COVID-19 Death in Japn from 2020-2021") +
   xlab("Date") + 
   ylab("Daily new death in Japan") +
-   scale_colour_brewer(palette = "Set1")
+   scale_colour_brewer(palette = "Set1")+
+   theme_minimal()
 
 ddeath_p <-ggplotly(ddeath_p)
 ddeath_p  
@@ -133,11 +134,12 @@ tdeath_p<- ggplot(data = death,
                           y= total_deaths,
                           )) +
     geom_line(stat = "identity", size = 0.5) +
-  geom_point(size = 0.3) +
+  geom_point(size = 0.3, colour = "#FF9999") +
     ggtitle("Total number of COVID-19 Death in Japn from 2020-2021") +
   xlab("Date") + 
   ylab("Total deaths in Japan") +
-   scale_colour_brewer(palette = "Set1")
+   scale_colour_brewer(palette = "Set1") +
+  theme_minimal()
 
 ddeath_p <-ggplotly(tdeath_p)
 ddeath_p 

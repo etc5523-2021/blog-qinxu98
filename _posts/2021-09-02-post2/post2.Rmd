@@ -70,7 +70,9 @@ p_plot <- ggplot(data = prefectures_p,
    geom_text(aes(label = testedPositive ), vjust =2, colour = "black", size = 2.2) +
   xlab("Number of postive cases") +
   ylab("Prefectures") +
-  coord_flip() 
+  coord_flip()+
+  theme_minimal()
+
 g<- ggplotly(p_plot)
 g
 
@@ -104,8 +106,10 @@ line_plot <- ggplot(data = new,
 prefectureNameE), size = 0.5) +
     ggtitle("Compare and contrast the number of postive cases for the top 6 prefectures in Japan") +
   xlab ("Date") +
-  ylab ("number tested positive")
-l<- ggplotly(line_plot)
+  ylab ("number tested positive")+
+  theme_minimal()
+
+l<- ggplotly(line_plot) 
 l
 ```
 
@@ -204,10 +208,12 @@ recovery_graph<- ggplot(data = recovery_rate,
                       aes(x = Date,
                           y= Recovery_rate
                           )) +
-    geom_line(stat = "identity", size = 0.5) +
-    ggtitle("proportion of COVID-19 recovery in Japan from 2020-2021") +
+    geom_line(stat = "identity", size = 0.5, colour = "#FF9999") +
+    ggtitle("Percentage of COVID-19 recovery in Japan from 2020-2021") +
   xlab("Date") + 
-  ylab("Percentage of recovery from COVID-19 in Japan") 
+  ylab("Percentage of recovery from COVID-19 in Japan") +
+  theme_minimal()
+  
 
 recovery_p <-ggplotly(recovery_graph)
 recovery_p
@@ -221,3 +227,4 @@ Base from the analysis we have conducted,  the COVID-19 situation in Japan is no
 
 THANKYOU for visiting my blog :))
 ![image sourced from:https://solve.org.au/update-covid19/](https://giffiles.alphacoders.com/214/214222.gif)
+
