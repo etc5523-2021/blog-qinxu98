@@ -7,7 +7,7 @@ The URL of this blog is [ https://etc5523-2021.github.io/blog-qinxu98/].
 
 This assessment is due Fri Sep 3 2021 11.55PM AEST.
 
-My selected country is [Japan].
+My selected country is [Philippine].
 
 The relevant blog post for this assessment is in [].html
 

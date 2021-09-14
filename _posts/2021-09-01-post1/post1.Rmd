@@ -149,4 +149,6 @@ From the plot generated, we can see that there is an increasing trend in the num
 
 From the above analysis on the daily positive cases , daily number of deaths and the total number of COVID-19 deaths in Japan, it can be concluded that the covid-19 situation in Japan are not in the positive light as daily positive cases, the total number of death and daily number death are greater in 2021 than 2020. An possible explanation to this  phenomenon is that, as covid-19 conitues to rampage the world,simultaneosuly the virus itself also continues to mutate into new variants of the virus with stronger fatality rate and tramissibility. Thus, making it more difficult to not catch the virus and ultimately leading to higher number of deaths and number of positive cases in Japan. 
 
+
+
  
