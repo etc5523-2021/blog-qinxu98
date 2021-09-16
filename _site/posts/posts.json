@@ -2,7 +2,7 @@
   {
     "path": "posts/2021-09-02-post2/",
     "title": "BlOG 2. COVID-19 Situation in Philippine",
-    "description": "In this section of the blog,",
+    "description": "There are two sections in the this blog. In part a, we will be expoloring the COVID-19 situation in the Philipine by first looking at it's total number of cases of postive and death cases. Following by analysis on the number of vacinnation rate in the Philipine in part b.",
     "author": [
       {
         "name": "Qin Xu",
@@ -11,9 +11,9 @@
     ],
     "date": "2021-09-02",
     "categories": [],
-    "contents": "\n\n\n\n\n\n\n\n\n\n",
-    "preview": {},
-    "last_modified": "2021-09-14T11:47:42+10:00",
+    "contents": "\n\n\n\nIntroduction\nimage sourced from: https://data.gov.ie/blog/coronavirus-covid-19Toward the end of 2019, the COVID-19 outbreak started in the Wuhan China and has been spreading rapidly around the world, forming a serious threat to the global public health system. The virus itself is a form of coronavirus that can lead to serious repiratory infections such as fever, dry cough, sore throat, and chest pain. As the world face such unprecedent challenge, the virus continues to mutate with increasing number of positive cases and deaths seen in countries around the world.\nimage sourced from:https://www.theguardian.com/world/2020/jun/09/global-report-philippines-says-schools-wont-reopen-until-there-is-a-covid-19-vaccineIn this blog, we will be looking at the COVID 19 situation in the Philippine by first, examining the death and postive cases currently in the philippine. Second, see the relationship between the vaccination and the number of death in the philippines\nData Description\nTo conduct our exploration of the impact of COVID in japan, we will be using multiple datasets (owid-covid-data.csv, recovery.csv, prefecture.csv) for our analysis. 2 of the datasets (prefectures.csv, prefecture.csv) were sourced from Toyo Keizai Online “Coronavirus Disease (COVID-19) Situation Report in Japan” with its orginal data provided by the Ministry of Health, Labor and Welfare in Japan. The owid-covid-data.csv dataset are provided by our world in data with its orginal data sourced from the COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University (JHU). No data wrangling and data tidy was conducted as the datasets have already been tided when sourced.\nPart A. COVID-19 situation in the Philippine\nIn this section, we will take a deep look into the the covid-19 situation in the philippine by looking at its daily increase.\n\n\n\n\n\n\n\n\n\n\n\n\nPart B. Vaccination effect on the death caused by COVID-19\n\n\n\n\n\n\n",
+    "preview": "https://i.guim.co.uk/img/media/99c20de39c94f154ae32c330a041a396180bc7db/0_0_2250_1350/master/2250.jpg?width=620&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=e30aca973e905f6d25227d02dad25435",
+    "last_modified": "2021-09-16T21:06:22+10:00",
     "input_file": "post2.knit.md"
   },
   {

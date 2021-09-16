@@ -32,26 +32,34 @@ library(lubridate)
 
 ```
 
-```{r read_data}
-data <- read.csv(here::here("data/owid-covid-data.csv"))
-```
 
 # Introduction
 
-![image sourced from:https://www.rph.org.nz/public-health-topics/illness-and-disease/coronavirus-covid-19/resources/](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.rph.org.nz%2Fpublic-health-topics%2Fillness-and-disease%2Fcoronavirus-covid-19%2Fresources%2F&psig=AOvVaw3C1JejXIyn1ses6aWighqg&ust=1631875903879000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJitzeupg_MCFQAAAAAdAAAAABAE)
+![image sourced from: https://data.gov.ie/blog/coronavirus-covid-19](https://data.gov.ie/uploads/page_images/2020-03-23-125654.327394covid-19-coronavirus-photo-illustration-with-copyspace-.jpg)
 
 Toward the end of 2019, the COVID-19 outbreak started in the Wuhan China and has been spreading rapidly around the world, forming a serious threat to the global public health system. The virus itself is a form of coronavirus that can lead to serious repiratory infections such as fever, dry cough, sore throat, and chest pain. As the world face such unprecedent challenge, the virus continues to mutate with increasing number of positive cases and deaths seen in countries around the world.
 
-![image sourced from:![image sourced from:https://www.rph.org.nz/public-health-topics/illness-and-disease/coronavirus-covid-19/resources/](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.scmp.com%2Fweek-asia%2Fhealth-environment%2Farticle%2F3101522%2Faustralia-india-and-philippines-are-coronavirus&psig=AOvVaw3foplxlKEWLkAQrveVRAjT&ust=1631876046649000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCMCmqpuqg_MCFQAAAAAdAAAAABAE)
+![image sourced from:https://www.theguardian.com/world/2020/jun/09/global-report-philippines-says-schools-wont-reopen-until-there-is-a-covid-19-vaccine](https://i.guim.co.uk/img/media/99c20de39c94f154ae32c330a041a396180bc7db/0_0_2250_1350/master/2250.jpg?width=620&quality=45&auto=format&fit=max&dpr=2&s=e30aca973e905f6d25227d02dad25435)
+
 
 In this blog, we will be looking at the COVID 19 situation in the Philippine by first, examining the death and postive cases currently in the philippine. Second, see the relationship between the vaccination and the number of death in the philippines
 
 # Data Description 
 
+To conduct the data analysis on COVID-19 situation in the Philippine,  the data set(owid-covid-data.csv) was used. The dataset are provided our world in data with the original data sourced from  the COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University (JHU).No data wrangling and data tidy was conducted as the datasets have already been tided when sourced. 
+
+
 
 # Part A. COVID-19 situation in the Philippine 
 
+
 In this section, we will take a deep look into the the covid-19 situation in the philippine by looking at its daily increase. 
+
+
+```{r read_data}
+data <- read.csv(here::here("data/owid-covid-data.csv"))
+```
+
 
 ```{r philippine data}
 Philippine <- data %>% 
@@ -83,17 +91,46 @@ plot1<- ggplot(data = cases,
                           )) +
     geom_line(stat = "identity", size = 0.5,colour = "#FF9999") +
   geom_point(size = 0.3, colour = "#FF9999") +
-    ggtitle("Daily number of COVID-19 confirm cases in Japan from 2020-2021") +
+    ggtitle("Daily number of COVID-19 confirm cases in the Philippine from 2020-2021") +
   xlab("Date") + 
   ylab("Daily new cases in Japan") +
    scale_colour_brewer(palette = "Set1")
 plot1
+
+p<- ggplotly(plot1)
+p
 ```
 
+```{r death_Data}
+deaths <- Philippine %>% 
+  select (c( "total_deaths",
+           "new_deaths",
+           "date",
+          "location")) %>% 
+  mutate(date = as.Date(date)) %>% 
+  relocate(date,.before = total_deaths)
+```
+
+```{r parta_ plot2}
+plot2<- ggplot(data = deaths, 
+                      aes(x = date,
+                          y= new_deaths,
+                          )) +
+    geom_line(stat = "identity", size = 0.5,colour = "#FF9999") +
+  geom_point(size = 0.3, colour = "#FF9999") +
+    ggtitle("Daily number of COVID-19 deaths in the Philippine from 2020-2021") +
+  xlab("Date") + 
+  ylab("Daily new cases in Japan") +
+   scale_colour_brewer(palette = "Set1")
+plot1
+
+p2<- ggplotly(plot2)
+p2
+```
 
 # Part B. Vaccination effect on the death caused by COVID-19 
 
-```{r }
+```{r vaccination}
 
 ```
 
