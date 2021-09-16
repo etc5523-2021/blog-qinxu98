@@ -1,7 +1,7 @@
 ---
-title: "Part 2.COVID-19 Situation in Japan"
+title: "BlOG 2. COVID-19 Situation in Philippine"
 description: |
-  In this section of the blog, we will drive deeper to explore the action that has been taken into account to fight COVID-19 in Japan by looking at it vacinnation rate and also the COVID-19 recovery rate.
+  There are two sections in the this blog. In part a, we will be expoloring the COVID-19 situation in the Philipine by first looking at it's total number of cases of postive and death cases. Following by analysis on the number of vacinnation rate in the Philipine in part b. 
 author:
   - name: Qin Xu
     url: {}
@@ -24,145 +24,38 @@ library(kableExtra)
 library(ggplot2)
 library(plotly)
 library(lubridate)
+library(dplyr)
+library(shiny)
+library(here)
+library(knitr)
+library(lubridate)
+
 ```
 
 ```{r read_data}
-recovery_data <- read.csv(here::here("data/recovery_total.csv"))
-japan_data <- read.csv(here::here("data/owid-covid-data.csv"))
-prefectures_data <- read.csv(here::here("data/prefectures.csv"))
-```
-## COVID-19 in different prefectures in Japan
-
-```{r}
-prefectures <- prefectures_data %>%
-  select(c(
-  "prefectureNameE",
-  "testedPositive",
-  "date",
-  "year",
-  "month")) %>% 
-  mutate(date = make_date(year, month, date)) %>% 
-filter(date == "2021-08-30") 
-
-prefectures_p <-prefectures  %>% 
- select("prefectureNameE",
-        "testedPositive") %>% 
-arrange(desc(testedPositive)) %>% 
-  top_n(6) 
-  
-  table<-prefectures_p %>% 
-    rename(Location = prefectureNameE,
-         "Number of postive cases" = testedPositive)
-
-knitr::kable (table,caption = "The top 6 prefecture with the most number of postive cases in Japan") %>% kable_styling()
-  
-
-```
-From the table, we can see that the top number of postive cases are located in Tokyo (340,665), Osaka (166,378), Kanagawa (146,239), saitama(100,136), Chiba (85,573) and Aichi (82,167) respectively.
-
-```{r prefectures_bargraph}
-p_plot <- ggplot(data = prefectures_p, 
-                      aes(x = prefectureNameE,
-                          y = testedPositive,
-                          fill = prefectureNameE)) +
-    geom_bar(stat="identity",position ="dodge") +
-    ggtitle("The top 6 prefecture with the most number of postive cases in Japan") +
-   geom_text(aes(label = testedPositive ), vjust =2, colour = "black", size = 2.2) +
-  xlab("Number of postive cases") +
-  ylab("Prefectures") +
-  coord_flip()+
-  theme_minimal()
-
-g<- ggplotly(p_plot)
-g
-
+data <- read.csv(here::here("data/owid-covid-data.csv"))
 ```
 
-```{r line_data}
-p_plot_data <- prefectures_data %>%
-  select(c(
-  "prefectureNameE",
-  "testedPositive",
-  "date",
-  "year",
-  "month")) %>% 
-  mutate(date = make_date(year, month, date))
+# Introduction
 
-new<- p_plot_data %>%
-  select(c(
-  "prefectureNameE",
-  "testedPositive",
-  "date")) %>% 
-  filter(prefectureNameE %in% c("Tokyo", "Osaka","Kanagawa","Saitama","Chiba","Aichi")
-         )
-```
+![image sourced from:https://www.rph.org.nz/public-health-topics/illness-and-disease/coronavirus-covid-19/resources/](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.rph.org.nz%2Fpublic-health-topics%2Fillness-and-disease%2Fcoronavirus-covid-19%2Fresources%2F&psig=AOvVaw3C1JejXIyn1ses6aWighqg&ust=1631875903879000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJitzeupg_MCFQAAAAAdAAAAABAE)
 
-```{r line plot data}
-line_plot <- ggplot(data = new, 
-                      aes(x = date,
-                          y= testedPositive,
-                          )) +
-    geom_line(aes(color = 
-prefectureNameE), size = 0.5) +
-    ggtitle("Compare and contrast the number of postive cases for the top 6 prefectures in Japan") +
-  xlab ("Date") +
-  ylab ("number tested positive")+
-  theme_minimal()
+Toward the end of 2019, the COVID-19 outbreak started in the Wuhan China and has been spreading rapidly around the world, forming a serious threat to the global public health system. The virus itself is a form of coronavirus that can lead to serious repiratory infections such as fever, dry cough, sore throat, and chest pain. As the world face such unprecedent challenge, the virus continues to mutate with increasing number of positive cases and deaths seen in countries around the world.
 
-l<- ggplotly(line_plot) 
-l
-```
+![image sourced from:![image sourced from:https://www.rph.org.nz/public-health-topics/illness-and-disease/coronavirus-covid-19/resources/](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.scmp.com%2Fweek-asia%2Fhealth-environment%2Farticle%2F3101522%2Faustralia-india-and-philippines-are-coronavirus&psig=AOvVaw3foplxlKEWLkAQrveVRAjT&ust=1631876046649000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCMCmqpuqg_MCFQAAAAAdAAAAABAE)
 
-From the graph, we can see that the number of postive cases of COIVD-19 for all 6 locations in Japan obtains a increasing trend. All of the prefectures show a rapid surge in the number of confirm Covid-19 cases since mid july 2021 and conintues to increase to end of August 2021. 
+In this blog, we will be looking at the COVID 19 situation in the Philippine by first, examining the death and postive cases currently in the philippine. Second, see the relationship between the vaccination and the number of death in the philippines
 
-## COVID-19 Vaccination in Japan
-
-Now lets have a look at the vaccination status in japan.
-
-```{r vacination}
-vac<- japan_data %>% 
-  select(c("date",
-           "total_vaccinations",
-           "people_fully_vaccinated",
-           "people_vaccinated",
-           "new_vaccinations",
-           "population",
-           "location")) %>% 
-  filter (location == "Japan") %>% 
-  mutate(date = as.Date(date)) %>% 
-  group_by(date) %>% 
-mutate(full_vacination_rate = sum((people_fully_vaccinated/population)*100, na.rm = TRUE),
-         vacination_rate = sum((people_vaccinated/population)*100, na.rm = TRUE))
-```
-
-```{r table}
-vac_table <- vac %>%  
-  select(c("vacination_rate","full_vacination_rate","date")) %>% 
-  filter (date == "2021-08-30" |date == "2021-01-30" | date == "2021-03-30" |date == "2021-04-30" | date == "2021-05-30" |date == "2021-06-30" | date == "2021-07-30")%>% 
-    relocate(date,.before = vacination_rate) %>% 
-  gt() %>% 
-  tab_header (title = "The Vacination rate in Japan",
-              subtitle = "The vacination rate and fully vacination rate 2020 vs 2021 in Japan ") %>% 
- tab_source_note(md("Souced:COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University (JHU)"))
-vac_table
-
-```
-
-From this table, we can see that since January 2021, both vaccination rate and those who have recieved full vaccination rate are increasing. By August 2021 the vaccination rate in Japan arrive at 57% and full vaccination rate arriving ar 0.46%. This indicates that over half of the population have had at least one vaccine dose and nearly half of the population is now fully vaccinated aginst COVID-19. With this table, we can see that with the increase number of vaccination rate, it is suggestive that the government in Japan is taking an active approach by urgenting public to get vaccinated inoroder to  slow down the the spread COVID-19. 
+# Data Description 
 
 
-## COVID-19 Recovery in Japan
+# Part A. COVID-19 situation in the Philippine 
 
-```{r recovery}
-japan_recovery <- recovery_data %>% 
-  rename("Number_of_recovery" = "recovery_total") %>%  
-  mutate(Date = as.Date(Date))
-```
+In this section, we will take a deep look into the the covid-19 situation in the philippine by looking at its daily increase. 
 
-
-```{r data}
-japan <- japan_data %>%
-  select(c("date",
+```{r philippine data}
+Philippine <- data %>% 
+  select (c("date",
            "total_cases",
            "new_cases",
            "total_deaths",
@@ -170,61 +63,39 @@ japan <- japan_data %>%
            "new_tests",
            "total_tests",
            "location")) %>% 
-  filter (location == "Japan") %>% 
-  mutate(date = as.Date(date)) %>% 
-  group_by(date) %>% 
-  mutate(percentage_positive_rate = sum(new_cases/new_tests, na.rm = TRUE) )
+  filter(location == "Philippines")
 ```
 
-```{r daily_cases}
-cases <- japan %>% 
+```{r cases_Data}
+cases <- Philippine %>% 
   select (c( "total_cases",
            "new_cases",
            "date",
           "location")) %>% 
-  mutate(Date = as.Date(date)) %>% 
+  mutate(date = as.Date(date)) %>% 
   relocate(date,.before = total_cases)
 ```
 
-```{r}
-recovery_rate<- japan_recovery %>% 
-  left_join(cases, by = "Date") %>% 
-  select(c("Date",
-           "Number_of_recovery",
-           "total_cases")) %>% 
-  group_by(Date) %>% 
-  mutate(Recovery_rate = sum(Number_of_recovery/total_cases*100))
-```
-
-Here we exmaine the COVID-19 recovery by looking at its proportion of recovery by dividing the number of recovery by the total confirm case COVID-19. 
-The following interactive table generated contains data of the date, number of recovery total case and the recovery_rate of covid-19 and is provided for data exploration for users. 
-
-```{r interactive_table2}
-DT::datatable(recovery_rate, option = list(pageLength = 4))
-```
-
-```{r recovery_rate_graph}
-recovery_graph<- ggplot(data = recovery_rate, 
-                      aes(x = Date,
-                          y= Recovery_rate
+```{r parta_plot1}
+plot1<- ggplot(data = cases, 
+                      aes(x = date,
+                          y= new_cases,
                           )) +
-    geom_line(stat = "identity", size = 0.5, colour = "#FF9999") +
-    ggtitle("Percentage of COVID-19 recovery in Japan from 2020-2021") +
+    geom_line(stat = "identity", size = 0.5,colour = "#FF9999") +
+  geom_point(size = 0.3, colour = "#FF9999") +
+    ggtitle("Daily number of COVID-19 confirm cases in Japan from 2020-2021") +
   xlab("Date") + 
-  ylab("Percentage of recovery from COVID-19 in Japan") +
-  theme_minimal()
-  
-
-recovery_p <-ggplotly(recovery_graph)
-recovery_p
+  ylab("Daily new cases in Japan") +
+   scale_colour_brewer(palette = "Set1")
+plot1
 ```
 
-From the graph, we can see that the proportion of recovery was relatively low from the january 2020 to the april of 2020 with recovery proportion peaking at around 39% and 22%. However by June 2020 to the end of 2020, the proportion of recovery rate has increased drasticially with recovery rate flutuating around 67% to 91%. The increase in recovery rate was again seen from the beginning of 2021 to the end of august 2021, with recovery rate flutuating around 76% to 95%.In conjunction with the previous analysis on vacinnation, it shows that with more and more people getting vaccinated against the virus in 2021, the recovery rate has increased significantly compared 2020 when the vaccination was not yet introduced, thus indicating that that the vaccination does have an effect on COVID-19 recovery rate in Japan. 
 
-**Conclusion**
-Base from the analysis we have conducted,  the COVID-19 situation in Japan is not great ,as there appears to be a growing number of confirm daily cases and deaths of COVID-19. However with the introduction of the vaccination in 2021, we also see a huge rise of recovery rate as compare to 2020. Thus we conclude that depsite the increase in the number of postive cases in Japan, the introduction of vaccination has helped to rised the recovery rate thus if vaccination continue to roll out across the country, with sufficient proportion of general public vaccinated, we can expect that the recovery rate will be grow simulatneously and slow down the virus (only if no new mutated COVID-19 variant show up). 
+# Part B. Vaccination effect on the death caused by COVID-19 
+
+```{r }
+
+```
 
 
-THANK YOU for visiting my blog :))
-![image sourced from:https://solve.org.au/update-covid19/](https://giffiles.alphacoders.com/214/214222.gif)
 
