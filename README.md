@@ -2,7 +2,7 @@
 
 
 This is the blog of [Qin Xu].
-The URL of this blog is [ https://etc5523-2021.github.io/blog-qinxu98/].
+The URL of this blog is [ https://etc5523-2021.github.io/blog-qinxu98/posts/2021-09-02-post2/].
 ## Blog Post 1
 
 This assessment is due Fri Sep 3 2021 11.55PM AEST.

@@ -1,0 +1,12 @@
+{
+  "articles": [
+    {
+      "path": "index.html",
+      "title": "ETC5523 Blog",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2021-09-17T21:10:18+10:00"
+    }
+  ],
+  "collections": ["posts/posts.json"]
+}
