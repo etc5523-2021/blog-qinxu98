@@ -49,7 +49,6 @@ In this blog, we will be looking at the COVID 19 situation in the Philippine by 
 To conduct the data analysis on COVID-19 situation in the Philippine,  the data set(owid-covid-data.csv) was used. The dataset are provided our world in data with the original data sourced from  the COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University (JHU).No data wrangling and data tidy was conducted as the datasets have already been tided when sourced. 
 
 
-
 # Part A. COVID-19 situation in the Philippine 
 
 
@@ -95,7 +94,7 @@ plot1<- ggplot(data = cases,
   xlab("Date") + 
   ylab("Daily new cases in Japan") +
    scale_colour_brewer(palette = "Set1")
-plot1
+
 
 p<- ggplotly(plot1)
 p
@@ -122,17 +121,116 @@ plot2<- ggplot(data = deaths,
   xlab("Date") + 
   ylab("Daily new cases in Japan") +
    scale_colour_brewer(palette = "Set1")
-plot1
+
 
 p2<- ggplotly(plot2)
 p2
 ```
 
+
+
 # Part B. Vaccination effect on the death caused by COVID-19 
 
-```{r vaccination}
+```{r vaccinatio_data}
+Philippine_v <- data %>% 
+  select (c("date",
+           "total_cases",
+           "new_cases",
+           "total_deaths",
+           "new_deaths",
+           "new_tests",
+           "total_tests",
+           "people_vaccinated",
+           "people_fully_vaccinated",
+           "location",
+           "population")) %>% 
+  filter(location == "Philippines")
+```
+
+
+```{r}
+vac_1 <- Philippine_v %>% 
+  select (c(  "people_vaccinated",
+           "date")) %>% 
+  mutate(date = as.Date(date)) %>% 
+  relocate(date,.before = people_vaccinated) %>% 
+  rename(number = people_vaccinated )
+
+vac_2 <- Philippine_v %>% 
+  select (c("people_fully_vaccinated",
+           "date")) %>% 
+  mutate(date = as.Date(date)) %>% 
+  relocate(date,.before = people_fully_vaccinated)  %>% 
+    rename(number = people_fully_vaccinated) 
+
+vector1 <- c("People vaccinated")
+vector2 <- c("People fully vaccinated")
+vac_1_1<-data.frame(Type = vector1, vac_1)
+vac_2_2<-data.frame(Type = vector2,vac_2)
+
+combine <- rbind(vac_1_1,vac_2_2) %>% 
+filter(!is.na(number))
+```
+
+```{r plot1}
+v_plot1 <- combine %>% 
+  ggplot(aes( x = date, 
+              y = number,
+              colour = Type)) +
+  labs( x = "Date",
+        y = "Number of vaccination",
+        title = "Number of vaccination in the Philippine" ,
+        subtitle = "Comparison of the number of people who had their first dose of vaccination and the number of fully vaccination") +
+  geom_histogram(alpha = 0.2, position = "dodge", stat = "identity" )
+  
+
+v_plot1  
 
 ```
 
+```{r table}
+table1 <- combine %>% 
+  filter(date == "2021-08-29" | date == "2021-08-15") %>% 
+  group_by(date,Type) %>% 
+  summarise(percentage = sum(number/111,046,910)) 
+table1$percentage<- round (table1$percentage,2)
+table1
+knitr::kable ( table1,caption = "The percentage of vaccination rate in the Philippine by 2021 August") %>% kable_styling()
+```
+
+### Now lets have a look on the association between the vacinnation and covid deaths. 
+
+```{r}
+Philippine_v <- data %>% 
+  select (c("date",
+           "total_cases",
+           "new_cases",
+           "total_deaths",
+           "new_deaths",
+           "new_tests",
+           "total_tests",
+           "people_vaccinated",
+           "people_fully_vaccinated",
+           "location",
+           "population")) %>% 
+  filter(location == "Philippines") %>% 
+  mutate(date = as.Date(date)) 
+  
+```
+
+```{r}
+association <- 
+  ggplot( data = Philippine_v ,aes(x = people_fully_vaccinated,
+          y = total_deaths,
+          colour = total_cases) )  +
+  geom_point(size = 0.3) +  
+    ggtitle("Association between the number of deaths and vaccination") +
+  xlab("Total number of people fully vaccinated") + 
+  ylab("Total deaths ")
+
+a <- ggplotly(association)
+a
+association
+```
 
 
