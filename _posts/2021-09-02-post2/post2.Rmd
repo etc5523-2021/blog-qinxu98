@@ -54,7 +54,6 @@ To conduct the data analysis on COVID-19 situation in the Philippine,  the data 
 
 In this section, we will take a deep look into the the covid-19 situation in the philippine by looking at its daily increase. 
 
-
 ```{r read_data}
 data <- read.csv(here::here("data/owid-covid-data.csv"))
 ```
@@ -100,6 +99,8 @@ p<- ggplotly(plot1)
 p
 ```
 
+From the plot, we can see that the daily number of new positive cases in the Philippine seem to exhibit a increasing trend with three peaks on the 10th of august 2020 (with 6,725 new daily cases),  2nd of April 2021 (with 15,298 new daily cases), 30th of August (with 22,179 new daily cases). This indicates that the situation in the Philippine are not in the posstive light as the number daily cases continue to increase. The increase in the number of posotive cases could potentially be fuelled by the Delta Variant that is currently taking a rampage around the globe due to its strong tramissibility. 
+
 ```{r death_Data}
 deaths <- Philippine %>% 
   select (c( "total_deaths",
@@ -127,7 +128,37 @@ p2<- ggplotly(plot2)
 p2
 ```
 
+In the above plot, we see that there is alot of flutuation from the July of 2020 to July 2021. However, it is clear that compared to 2020, the number of daily deaths cause by covid has significantly increased, with the daily number of deaths peaking at 401 in 2021 as compared to the 259 deaths in the peak for 2020. Again, suggestng that the covid-19 situation in the Philippine continue to worsening and pose a serious threat to its people. 
 
+
+```{r table2}
+Philippine <- data %>% 
+  select (c("date",
+           "total_cases",
+           "new_cases",
+           "total_deaths",
+           "new_deaths",
+           "new_tests",
+           "total_tests",
+           "location",
+           "population")) %>% 
+  filter(location == "Philippines") %>% 
+  mutate(date = as.Date(date)) 
+  
+table2 <- Philippine %>% 
+  filter(date == "2021-08-29") %>% 
+  mutate(mortality_rate = sum(total_deaths/population),
+         fatality_rate = sum(total_deaths/total_cases),
+         avg_number_of_cases_daily = sum(total_cases/730),
+        avg_number_of_deaths_daily = sum(total_cases/730)) %>% 
+        select(-c("new_cases",
+                  "new_deaths",
+                  "location"))
+
+knitr::kable ( table2,caption = "Table summary of the COVID-19 situation in the Philippine by 29th of August 2021") %>% kable_styling()
+
+table2  
+```
 
 # Part B. Vaccination effect on the death caused by COVID-19 
 
@@ -186,9 +217,11 @@ v_plot1 <- combine %>%
 
 v_plot1  
 
+v <- ggplotly(v_plot1)
+v
 ```
 
-```{r table}
+```{r table1}
 table1 <- combine %>% 
   filter(date == "2021-08-29" | date == "2021-08-15") %>% 
   group_by(date,Type) %>% 
