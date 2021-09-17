@@ -31,6 +31,7 @@ library(knitr)
 library(lubridate)
 library(colorspace)
 library(GGally)
+library(gghighlight)
 
 ```
 
@@ -49,6 +50,8 @@ In this blog, we will be looking at the COVID 19 situation in the Philippine by 
 # Data Description 
 
 To conduct the data analysis on COVID-19 situation in the Philippine,  the data set(owid-covid-data.csv) was used. The dataset are provided our world in data with the original data sourced from  the COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University (JHU).No data wrangling and data tidy was conducted as the datasets have already been tided when sourced. 
+
+[The data can be retrieved here (click me!)](https://github.com/owid/covid-19-data/tree/master/public/data) : https://github.com/owid/covid-19-data/tree/master/public/data
 
 
 # Part A. COVID-19 situation in the Philippine 
@@ -184,6 +187,8 @@ From the above analysis we can conclude that Even after a almost two years since
 
 # Part B. Vaccination effect on the death caused by COVID-19 
 
+Now day many countries are introducing vaccination in attempt to stop the pandemic. In this section we will be looking at the association between the vaccination and its relatonship with the the number of COVID-19 death. 
+
 ```{r vaccinatio_data}
 Philippine_v <- data %>% 
   select (c("date",
@@ -225,22 +230,24 @@ combine <- rbind(vac_1_1,vac_2_2) %>%
 filter(!is.na(number))
 ```
 
-```{r plot1}
 
-v_plot1 <- ggplot(combine, aes(date, number)) + 
-  geom_line(data = dplyr::select(combine, -Type), color = "gray", stat = "identity") + 
-  geom_line(aes(color = Type)) +
+```{r}
+h <- combine %>% 
+  ggplot(aes( x = date, 
+              y = number,
+              fill = Type)) +
   labs( x = "Date",
         y = "Number of vaccination",
         title = "Number of vaccination in the Philippine" ,
         subtitle = "Comparison of the number of people who had their first dose of vaccination and the number of fully vaccination") +
-  facet_wrap(~Type)+ 
-  scale_color_discrete_qualitative() + 
-  guides(color = FALSE)
+  geom_histogram( position = "dodge", stat = "identity") +
+  gghighlight()
 
-v <- ggplotly(v_plot1)
-v
+b <-ggplotly(h + facet_wrap(~ Type))
+  b
+
 ```
+
 
 ```{r table1}
 table1 <- combine %>% 
@@ -256,7 +263,9 @@ table1$percentage<- round (table1$percentage,2)
 knitr::kable ( table1,caption = "The percentage of vaccination rate in the Philippine by 2021 August") %>% kable_styling()
 ```
 
-### Now lets have a look on the association between the vacinnation and covid deaths. 
+From the graph and the table above, we can see that in the philippine there is greater number of people who has has at least dose of vaccination compared to those who has been fully vaccinated against the COVID-19. By 15th of August, there are 18,697,647 (16.84%) people who has had their first dose of vaccination and 11.3212,565,017 who are fully vaccinated.
+
+**Now lets have a look on the association between the vaccination and covid deaths** 
 
 
 ```{r combine1}
@@ -292,15 +301,15 @@ filter(!is.na(number)) %>%
 
 ```{r plot4}
 association_p <- 
-  ggplot( data = combine1 ,aes(x = date,
-          y = number ,
+  ggplot( data = combine1 ,aes(x = number,
+          y = total_deaths ,
           colour = total_cases,
           shape = factor (Type)) )  +
   geom_point(size = 0.8) +  
   labs (
 title = "Association between the number of deaths and vaccination",
-  x = "Total number of people fully vaccinated",
-  y = "Total deaths",
+  x = "Number of vaccination",
+  y = "Number of deaths",
   color = "Number of cases",
   shape   = "Type" ) +
   scale_color_continuous_sequential(palette = "Terrain") +
@@ -310,10 +319,24 @@ title = "Association between the number of deaths and vaccination",
         panel.background = element_rect(fill = "wheat2"))
   association_p 
   
+```
+
+**Here is an interactive version of the plot above**
+
+```{r}
 a <- ggplotly(association_p)
 a
-
 ```
+
+Unlike what we expected, we see that there seem to be a increasing association between the number of death and the number of vaccination in the graph above. However, one thing to note is that after when the number of vaccination exceeds 2 million, the gradient of the curve for both people who are fully vaccinated and people who only has one dose of vacinnation gradually became flatter. Indicating that there after certain amount of vaccination has been taken place, number of death (despite it is still increasing ), it is increasing at a slower rate, suggesting that vaccination is effective and should be use to fight against the COVID-19 virus. Further more , another interesting findign foudn from the graph is that, it appears that there are less number of confimred positive cases after receiveing one dose of the vacinnation compared to those fully vacinanted. 
+
+
+
+**Conclusion**
+
+In part b, we have looked at the the relationship between the vaccination and number of death in philippine, and found despite, there seems to be a positive relationship between the number of vaccination and deaths, that relationship is growing at a dimishing rate (still increasing but increasing at a slower rate). Thus we can concluse that vaccinaiton is effective, hwoever the effect is little as this is not enough people is vaccinated in t he current stage.
+
+# References
 
 
 
