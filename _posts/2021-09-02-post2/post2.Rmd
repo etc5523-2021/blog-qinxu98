@@ -29,6 +29,8 @@ library(shiny)
 library(here)
 library(knitr)
 library(lubridate)
+library(colorspace)
+library(GGally)
 
 ```
 
@@ -137,7 +139,8 @@ plot1<- ggplot(data = cases,
     ggtitle("Daily number of COVID-19 confirm cases in the Philippine from 2020-2021") +
   xlab("Date") + 
   ylab("Daily new cases in Japan") +
-   scale_colour_brewer(palette = "Set1")
+   scale_colour_brewer(palette = "Set1") +
+  theme_minimal()
 
 
 p<- ggplotly(plot1)
@@ -166,7 +169,8 @@ plot2<- ggplot(data = deaths,
     ggtitle("Daily number of COVID-19 deaths in the Philippine from 2020-2021") +
   xlab("Date") + 
   ylab("Daily new cases in Japan") +
-   scale_colour_brewer(palette = "Set1")
+   scale_colour_brewer(palette = "Set1") +
+  theme_minimal()
 
 
 p2<- ggplotly(plot2)
@@ -222,18 +226,17 @@ filter(!is.na(number))
 ```
 
 ```{r plot1}
-v_plot1 <- combine %>% 
-  ggplot(aes( x = date, 
-              y = number,
-              colour = Type)) +
+
+v_plot1 <- ggplot(combine, aes(date, number)) + 
+  geom_line(data = dplyr::select(combine, -Type), color = "gray", stat = "identity") + 
+  geom_line(aes(color = Type)) +
   labs( x = "Date",
         y = "Number of vaccination",
         title = "Number of vaccination in the Philippine" ,
         subtitle = "Comparison of the number of people who had their first dose of vaccination and the number of fully vaccination") +
-  geom_histogram(alpha = 0.2, position = "dodge", stat = "identity" )
-  
-
-v_plot1  
+  facet_wrap(~Type)+ 
+  scale_color_discrete_qualitative() + 
+  guides(color = FALSE)
 
 v <- ggplotly(v_plot1)
 v
@@ -249,43 +252,69 @@ table1<- table1 %>%
   mutate(percentage = sum(number/population*100))
 
 table1$percentage<- round (table1$percentage,2)
-table1
+
 knitr::kable ( table1,caption = "The percentage of vaccination rate in the Philippine by 2021 August") %>% kable_styling()
 ```
 
 ### Now lets have a look on the association between the vacinnation and covid deaths. 
 
-```{r}
-Philippine_v <- data %>% 
-  select (c("date",
-           "total_cases",
-           "new_cases",
-           "total_deaths",
-           "new_deaths",
-           "new_tests",
-           "total_tests",
-           "people_vaccinated",
-           "people_fully_vaccinated",
-           "location",
-           "population")) %>% 
-  filter(location == "Philippines") %>% 
-  mutate(date = as.Date(date)) 
+
+```{r combine1}
+vac_3 <- Philippine_v %>% 
+  select (c(  "total_deaths",
+              "people_vaccinated",
+               "total_cases",
+           "date")) %>% 
+  mutate(date = as.Date(date)) %>% 
+  relocate(date,.before = total_deaths) %>% 
+  rename(number = people_vaccinated )
+
+vac_4 <- Philippine_v %>% 
+  select (c("people_fully_vaccinated",
+            "total_deaths",
+             "total_cases",
+           "date")) %>% 
+  mutate(date = as.Date(date)) %>% 
+  relocate(date,.before = total_deaths)  %>% 
+    rename(number = people_fully_vaccinated) 
+
+vector3 <- c("People vaccinated")
+vector4 <- c("People fully vaccinated")
+vac_3_3<-data.frame(Type = vector3, vac_3)
+vac_4_4<-data.frame(Type = vector4,vac_4)
+
+combine1 <- rbind(vac_3_3,vac_4_4) %>% 
+filter(!is.na(number)) %>% 
+  mutate(Type = as.factor(Type))
+
+```
   
-```
 
-```{r}
-association <- 
-  ggplot( data = Philippine_v ,aes(x = people_fully_vaccinated,
-          y = total_deaths,
-          colour = total_cases) )  +
-  geom_point(size = 0.3) +  
-    ggtitle("Association between the number of deaths and vaccination") +
-  xlab("Total number of people fully vaccinated") + 
-  ylab("Total deaths ")
-
-a <- ggplotly(association)
+```{r plot4}
+association_p <- 
+  ggplot( data = combine1 ,aes(x = date,
+          y = number ,
+          colour = total_cases,
+          shape = factor (Type)) )  +
+  geom_point(size = 0.8) +  
+  labs (
+title = "Association between the number of deaths and vaccination",
+  x = "Total number of people fully vaccinated",
+  y = "Total deaths",
+  color = "Number of cases",
+  shape   = "Type" ) +
+  scale_color_continuous_sequential(palette = "Terrain") +
+  scale_shape_discrete(labels = c("Full vaccination", "At least 1 dose of vaccination")) + 
+  theme (text = element_text(colour = "black"),
+        rect = element_rect(fill = "wheat2"),
+        panel.background = element_rect(fill = "wheat2"))
+  association_p 
+  
+a <- ggplotly(association_p)
 a
-association
+
 ```
+
+
 
 
