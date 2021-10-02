@@ -330,7 +330,7 @@ Unlike what we expected, we see that there seem to be an increasing association 
 
 **Conclusion**
 
-In part b, we have looked at the the relationship between the vaccination and number of death in philippine, and found despite, there seems to be a positive relationship between the number of vaccination and deaths, that relationship is growing at a dimishing rate (still increasing but increasing at a slower rate). Thus we can conclude that vaccinaiton is effective, hwoever the effect is little as this is not enough people is vaccinated in the current stage.
+In part b, we have looked at the the relationship between the vaccination and number of death in philippine, and found despite, there seems to be a positive relationship between the number of vaccination and deaths, that relationship is growing at a dimishing rate (still increasing but increasing at a slower rate). Thus we can conclude that vaccinaiton is effective, however the effect is little as this is not enough people is vaccinated in the current stage.
 
 THANK YOU for visiting my blog :))
 ![image sourced from:https://solve.org.au/update-covid19/](https://giffiles.alphacoders.com/214/214222.gif)
