@@ -137,7 +137,7 @@ plot1<- ggplot(data = cases,
   geom_point(size = 0.3, colour = "#FF9999") +
     ggtitle("Daily number of COVID-19 confirm cases in the Philippine from 2020-2021") +
   xlab("Date") + 
-  ylab("Daily new cases in Japan") +
+  ylab("Daily new cases") +
    scale_colour_brewer(palette = "Set1") +
   theme_minimal()
 
@@ -167,7 +167,7 @@ plot2<- ggplot(data = deaths,
   geom_point(size = 0.3, colour = "#FF9999") +
     ggtitle("Daily number of COVID-19 deaths in the Philippine from 2020-2021") +
   xlab("Date") + 
-  ylab("Daily new cases in Japan") +
+  ylab("Daily new deaths") +
    scale_colour_brewer(palette = "Set1") +
   theme_minimal()
 
@@ -259,7 +259,7 @@ table1$percentage<- round (table1$percentage,2)
 knitr::kable ( table1,caption = "The percentage of vaccination rate in the Philippine by 2021 August") %>% kable_styling()
 ```
 
-From the graph and the table above, we can see that in the philippine there is greater number of people who has has at least dose of vaccination compared to those who has been fully vaccinated against the COVID-19. By 15th of August, there are 18,697,647 (16.84%) people who has had their first dose of vaccination and 11.3212,565,017 who are fully vaccinated.
+From the graph and the table above, we can see that in the philippine there is greater number of people who has has at least dose of vaccination compared to those who has been fully vaccinated against the COVID-19. By 15th of August, there are 18,697,647 (16.84%) people who has had their first dose of vaccination and 12,565,017 who are fully vaccinated.
 
 **Now lets have a look on the association between the vaccination and covid deaths** 
 
@@ -324,13 +324,13 @@ a <- ggplotly(association_p)
 a
 ```
 
-Unlike what we expected, we see that there seem to be a increasing association between the number of death and the number of vaccination in the graph above. However, one thing to note is that after when the number of vaccination exceeds 2 million, the gradient of the curve for both people who are fully vaccinated and people who only has one dose of vacinnation gradually became flatter. Indicating that there after certain amount of vaccination has been taken place, number of death (despite it is still increasing ), it is increasing at a slower rate, suggesting that vaccination is effective and should be use to fight against the COVID-19 virus. Further more , another interesting findign foudn from the graph is that, it appears that there are less number of confimred positive cases after receiveing one dose of the vacinnation compared to those fully vacinanted. 
+Unlike what we expected, we see that there seem to be an increasing association between the number of death and the number of vaccination in the graph above. However, one thing to note is that after when the number of vaccination exceeds 2 million, the gradient of the curve for both people who are fully vaccinated and people who only has one dose of vacinnation gradually became flatter. Indicating that there after certain amount of vaccination has been taken place, number of death (despite it is still increasing ), it is increasing at a slower rate, suggesting that vaccination is effective and should be use to fight against the COVID-19 virus. Further more , another interesting finding found from the graph is that, it appears that there are less number of confirmed positive cases after receiving one dose of the vacinnation compared to those fully vaccinanted. 
 
 
 
 **Conclusion**
 
-In part b, we have looked at the the relationship between the vaccination and number of death in philippine, and found despite, there seems to be a positive relationship between the number of vaccination and deaths, that relationship is growing at a dimishing rate (still increasing but increasing at a slower rate). Thus we can concluse that vaccinaiton is effective, hwoever the effect is little as this is not enough people is vaccinated in t he current stage.
+In part b, we have looked at the the relationship between the vaccination and number of death in philippine, and found despite, there seems to be a positive relationship between the number of vaccination and deaths, that relationship is growing at a dimishing rate (still increasing but increasing at a slower rate). Thus we can concluded that vaccinaiton is effective, hwoever the effect is little as this is not enough people is vaccinated in the current stage.
 
 THANK YOU for visiting my blog :))
 ![image sourced from:https://solve.org.au/update-covid19/](https://giffiles.alphacoders.com/214/214222.gif)
