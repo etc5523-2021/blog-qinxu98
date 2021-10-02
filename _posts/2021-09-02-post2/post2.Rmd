@@ -1,7 +1,7 @@
 ---
 title: "BlOG 2. COVID-19 Situation in Philippine"
 description: |
-  There are two sections in the this blog. In part a, we will be expoloring the COVID-19 situation in the Philipine by first looking at it's total number of cases of postive and death cases. Following by analysis on the number of vacinnation rate in the Philipine in part b. 
+  There are two sections in the this blog. In part a, we will be exploring the COVID-19 situation in the Philipine by first looking at it's total number of cases of postive and death cases. Following by analysis on the number of vacinnation rate in the Philippine in part b. 
 author:
   - name: Qin Xu
     url: {}
@@ -114,7 +114,7 @@ knitr::kable ( table2,caption = "Table summary of the COVID-19 situation in the 
    column_spec(4, width = "18em")
 ```
 
- A sumamry table has been provided above. 
+A summary table has been provided above. 
  
 From the table, we can see that by August 29th 2021, the total number of cases for the philippine has arrived to 1954023,  with 33109 deaths. What seems shocking in this data is that on average since the pandemic has started,  there is on average 2677 number of positive cases  and 45 number of covid-19 death everyday. 
 
@@ -146,7 +146,7 @@ p<- ggplotly(plot1)
 p
 ```
 
-From the plot, we can see that the daily number of new positive cases in the Philippine seem to exhibit a increasing trend with three peaks on the 10th of august 2020 (with 6,725 new daily cases),  2nd of April 2021 (with 15,298 new daily cases), 30th of August (with 22,179 new daily cases). This indicates that the situation in the Philippine are not in the posstive light as the number daily cases continue to increase. The increase in the number of posotive cases could potentially be fuelled by the Delta Variant that is currently taking a rampage around the globe due to its strong tramissibility. 
+From the plot, we can see that the daily number of new positive cases in the Philippine seem to exhibit a increasing trend with three peaks on the 10th of august 2020 (with 6,725 new daily cases),  2nd of April 2021 (with 15,298 new daily cases), 30th of August (with 22,179 new daily cases). This indicates that the situation in the Philippine are not in the positive light as the number of daily cases continue to increase. The increase in the number of positive cases could potentially be fuelled by the Delta Variant that is currently taking a rampage around the globe due to its strong tramissibility. 
 
 ```{r death_Data}
 deaths <- Philippine %>% 
@@ -176,10 +176,10 @@ p2<- ggplotly(plot2)
 p2
 ```
 
-In the above plot, we see that there is alot of flutuation from the July of 2020 to July 2021. However, it is clear that compared to 2020, the number of daily deaths cause by covid has significantly increased, with the daily number of deaths peaking at 401 in 2021 as compared to the 259 deaths in the peak for 2020. Again, suggestng that the covid-19 situation in the Philippine continue to worsening and pose a serious threat to the public heath system and its people in the Philippine. 
+In the above plot, we see that there is alot of fluctuation from the July of 2020 to July 2021. However, it is clear that compared to 2020, the number of daily deaths cause by covid has significantly increased, with the daily number of deaths peaking at 401 in 2021 as compared to the 259 deaths in the peak for 2020. Again, suggestng that the covid-19 situation in the Philippine continue to worsening and pose a serious threat to the public heath system and its people in the Philippine. 
 
 **Conclusion**
-From the above analysis we can conclude that Even after a almost two years since the COVID-19 pandemic started, it continues to spread across the  Philippine at an increasing rate (due to multiple of different covid-19 mutate variant such as delta and mu) that led to rapid surge in both the number of positive and number of deaths. 
+From the above analysis we can conclude that Even after an almost two years since the COVID-19 pandemic started, it continues to spread across the  Philippine at an increasing rate (due to multiple of different covid-19 mutate variant such as delta and mu) that led to rapid surge in both the number of positive and number of deaths. 
 
 # Part B. Vaccination effect on the death caused by COVID-19 
 
