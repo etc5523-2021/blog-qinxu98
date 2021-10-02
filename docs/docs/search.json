@@ -6,14 +6,14 @@
       "description": "Some additional details about the blog",
       "author": [],
       "contents": "\nHi there, in this blog, I explore COVID-19 situation in Japan by conducting analysis on the number of death, number of postive case of COVID-19, COVID-19 in different prefecture in Japan, Vaccination status and recovery rate. If this is something that interests you, you are welcome continue to explore my blog and contact me by my email:\nemail: qxuu0023@student.monash.edu\n\n\n\n",
-      "last_modified": "2021-09-17T21:05:35+10:00"
+      "last_modified": "2021-10-02T12:20:00+10:00"
     },
     {
       "path": "index.html",
       "title": "ETC5523 Blog",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-09-17T21:05:36+10:00"
+      "last_modified": "2021-10-02T12:20:00+10:00"
     }
   ],
   "collections": ["posts/posts.json"]
